@@ -1,0 +1,259 @@
+#include <stdio.h>
+
+#include <string.h> 
+
+#include<stdlib.h>
+
+struct tele
+
+{ 
+
+	char name[20];
+
+	char tel[12]; 
+
+	char email[30];
+
+	char add[10];
+
+	char qq[10];
+
+};
+
+void paixu(struct tele su[300],int M)
+
+{ 
+
+	struct tele t;
+
+	for(int j=0;j<M;j++)
+
+	{
+
+		for(int i=0;i<M;i++)    
+
+		{     
+
+			if(su[i].name[0]-su[i+1].name[0]>0)   
+
+			{   
+
+			   t=su[i];
+
+			   su[i]=su[i+1];
+
+			   su[i+1]=t;
+
+
+
+			}
+
+			if(su[i].name[0]-su[i+1].name[0]==0)   
+
+			{   
+
+			   if(su[i].name[1]-su[i+1].name[1]>0)   
+
+				{   
+
+				   t=su[i];
+
+				   su[i]=su[i+1];
+
+				   su[i+1]=t;
+
+
+
+			}
+
+
+
+			}
+
+		}
+
+	}
+
+}
+
+ void chaxun(struct tele su[300],int M)
+
+ {
+
+	char n[12]; 
+
+	int i;  
+
+	printf("请输入要查询的姓名或电话:\n"); 
+
+	scanf("%s",n);
+
+	for(i=0;i<=M;i++)    
+
+{     
+
+	if(strcmp(su[i].name,n) == 0||strcmp(su[i].tel,n) == 0)   
+
+	{   
+
+		printf("result:\t%s\t%s\t%s\t%s\t%s\n",su[i].name,su[i].tel,su[i].email,su[i].add,su[i].qq);    
+
+		break;     
+
+	}
+
+}
+
+	if(i==M+1)
+
+	printf("没有该联系人!\n"); 
+
+ }  
+
+
+
+
+
+ int scan(struct tele su[],int i)
+
+ {
+
+	while(1)
+
+	{
+
+		i++;
+
+		printf("请输入第%d位联系人姓名 电话 电子邮件 家庭住址 QQ:\n",i);
+
+		scanf("%s",su[i].name);
+
+		if((su[i].name)[0]=='#')
+
+		break;
+
+		scanf(" %s %s %s %s",su[i].tel,su[i].email,su[i].add,su[i].qq);
+
+	}
+
+		return i-1;
+
+ } 
+
+void print(struct tele su[],int n)
+
+ {
+
+	int j;
+
+	for(j=1;j<=n;j++)
+
+	printf("%d:\t%s\t%s\t%s\t%s\t%s\n",j,su[j].name,su[j].tel,su[j].email,su[j].add,su[j].qq);
+
+ } 
+
+
+
+
+
+void change(struct tele su[],int M)
+
+{
+
+	char n[12]; 
+
+	int i;  
+
+	printf("请输入要修改成员的姓名或电话:\n"); 
+
+	scanf("%s",n);
+
+	for(i=0;i<=M;i++)    
+
+	{     
+
+		if(strcmp(su[i].name,n) == 0||strcmp(su[i].tel,n) == 0)     
+
+		break;        
+
+	}
+
+	if(i>M)
+
+	printf("没有该联系人!\n"); 
+
+	else
+
+	{
+
+	printf("请输入要修改成员的信息:\n");
+
+	scanf("%s %s %s %s %s%*c",su[i].name,su[i].tel,su[i].email,su[i].add,su[i].qq);
+
+	printf("修改完成!\n");
+
+	}
+
+}
+
+
+
+
+
+ int main()
+
+ {  
+
+	int i=0,a,n;    
+
+	struct tele su[300];
+
+	n=scan(su,i);
+
+	paixu(su,n);
+
+	while(1)
+
+	{
+
+		system("cls"); 
+
+		printf("   请输入通讯录菜单选项(1--显示通讯录成员)(2--查询通讯录成员)(3--修改通讯录成员)(0--关闭):\n");
+
+		scanf("%d",&a);
+
+		if(a==0) break;
+
+		switch(a)
+
+		{
+
+			case 1:
+
+			printf("通讯录成员:\n");
+
+			print(su,n);
+
+			break;
+
+			case 2:chaxun(su,n);
+
+			break;
+
+			case 3:change(su,n);
+
+			break;
+
+
+
+		}
+
+		system("pause");
+
+	}
+
+	return 0;
+
+ }
+
+
